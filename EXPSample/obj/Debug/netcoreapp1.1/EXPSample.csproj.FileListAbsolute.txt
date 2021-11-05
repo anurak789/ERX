@@ -1,0 +1,9 @@
+C:\projects\EXPSample\EXPSample\bin\Debug\netcoreapp1.1\EXPSample.deps.json
+C:\projects\EXPSample\EXPSample\bin\Debug\netcoreapp1.1\EXPSample.runtimeconfig.json
+C:\projects\EXPSample\EXPSample\bin\Debug\netcoreapp1.1\EXPSample.runtimeconfig.dev.json
+C:\projects\EXPSample\EXPSample\bin\Debug\netcoreapp1.1\EXPSample.dll
+C:\projects\EXPSample\EXPSample\bin\Debug\netcoreapp1.1\EXPSample.pdb
+C:\projects\EXPSample\EXPSample\obj\Debug\netcoreapp1.1\EXPSample.AssemblyInfo.cs
+C:\projects\EXPSample\EXPSample\obj\Debug\netcoreapp1.1\EXPSample.dll
+C:\projects\EXPSample\EXPSample\obj\Debug\netcoreapp1.1\EXPSample.pdb
+C:\projects\EXPSample\EXPSample\obj\Debug\netcoreapp1.1\EXPSample.csprojResolveAssemblyReference.cache

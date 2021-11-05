@@ -1,0 +1,97 @@
+@model EXPSample.ViewModels.PersonalInfoViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Please answer questions below.</h2>
+@using (Html.BeginForm("Create", "Personal"))
+{
+    <div class="form-horizontal">
+        <div id="personalInfo">
+            <h3>Personal Informatin</h3>
+            <div class="form-group">
+                @Html.LabelFor(m => m.StrTitle)
+                @Html.DropDownListFor(m => m.StrTitle, new SelectList(Model.Titles, "Name", "Name"), "", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Firstname)
+                @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Lastname)
+                @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DateOfBirth)
+                @Html.TextBoxFor(m => m.DateOfBirth, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.StrCountry)
+                @Html.DropDownListFor(m => m.StrCountry, new SelectList(Model.CountryRess, "Country", "Country"), "", new { @class = "form-control", id = "Country"})
+            </div>
+            <button class="btn btn-info btn-sm js-toggle-address" type="button" data-bs-toggle="collapse" data-bs-target="#address" aria-expanded="false" aria-controls="address">
+            Next
+            </button>
+        </div>
+        <div id="address" style="display: none;">
+            <h3>Address</h3>
+            <div class="form-group">
+                @Html.LabelFor(m => m.HouseAddress)
+                @Html.TextBoxFor(m => m.HouseAddress, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.WorkAddress)
+                @Html.TextBoxFor(m => m.WorkAddress, new { @class = "form-control" })
+            </div>
+        </div>
+        <div id="occupation" style="display: none;">
+            <h3>Occupation</h3>
+            <div class="form-group">
+                @Html.LabelFor(m => m.StrOccupation)
+                @Html.DropDownListFor(m => m.StrOccupation, new SelectList(Model.Occupations, "Name", "Name"), "", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.JobTitle)
+                @Html.TextBoxFor(m => m.JobTitle, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.StrBusinessType)
+                @Html.DropDownListFor(m => m.StrBusinessType, new SelectList(Model.BusinessTypes, "TypeName", "TypeName"), "", new { @class = "form-control" })
+            </div>
+
+            <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-toggle-address").click(function (e) {
+                var button = $(e.target);
+                var selectedVal = $("#Country").val();
+                $.post({
+                    url: "/api/Info",
+                    data: JSON.stringify(selectedVal),
+                    contentType: 'application/json; charset=utf-8'
+                })
+                    .done(function () {
+                        $("#address").show("slow");
+                        $("#occupation").show("slow");
+                        button.hide();
+                    })
+                    .fail(function () {
+                        alert("Based on your information the questionnaire is done.");
+
+                    });
+            });
+
+        });
+    </script>
+}
+
+
+
+

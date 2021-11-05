@@ -1,0 +1,136 @@
+@model IEnumerable<EXPSample.Data.PersonalInfo>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>Manage</h2>
+
+<p>
+   <button id="downloadCSV" class="btn btn-success pull-right">Get CSV File</button>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CountryRes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HouseAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Occupation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JobTitle)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td id="itemId">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryRes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HouseAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Occupation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                <button id="deletePerson" data-itm-id="@item.Id" class="btn btn-default">
+                   Delete
+                </button>
+</td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#downloadCSV").click(function (e) {
+                var button = $(e.target);
+                $.post({
+                    url: "/api/Values",
+                    data: JSON.stringify(""),
+                    contentType: 'application/json; charset=utf-8'
+                })
+                    .done(function () {
+                        alert("Download CSV success.");
+                    })
+                    .fail(function () {
+                        alert("Fail to download file");
+
+                    });
+            });
+
+        });
+
+        $(document).ready(function () {
+            $("#deletePerson").click(function (e) {
+                var button = $(e.target);
+                var selectedVal = button.attr("data-itm-id");
+                $.ajax({
+                    url: "/api/Info",
+                    type: "Delete",
+                    data: JSON.stringify(selectedVal),
+                    contentType: 'application/json; charset=utf-8'
+                })
+                    .done(function () {
+                        alert("Delete" + selectedVal);
+                    })
+                    .fail(function () {
+                        alert("Cannot delete." + selectedVal);
+
+                    });
+            });
+        });
+    </script>
+}
+
+
